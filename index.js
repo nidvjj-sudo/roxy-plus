@@ -306,13 +306,13 @@ client.on('messageCreate', async (message) => {
                 // Capture reference BEFORE delete
                 const referenceId = message.reference ? message.reference.messageId : null;
 
-                // permission check for delete
-                if (message.guild && message.guild.me.permissionsIn(message.channel).has('MANAGE_MESSAGES')) {
+                // Deletion Logic
+                // 1. If it's the bot's own message, it can always delete it (Guild or DM).
+                // 2. If it's someone else's message, bot needs MANAGE_MESSAGES permission in Guild to delete it.
+                if (message.author.id === client.user.id) {
                     try { await message.delete(); } catch (e) { }
-                } else if (message.channel.type === 'DM') {
-                    if (message.author.id === client.user.id) {
-                        try { await message.delete(); } catch (e) { }
-                    }
+                } else if (message.guild && message.guild.me.permissionsIn(message.channel).has('MANAGE_MESSAGES')) {
+                    try { await message.delete(); } catch (e) { }
                 }
 
                 // Logic:
