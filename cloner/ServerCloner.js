@@ -147,7 +147,9 @@ class ServerCloner {
 
     async cloneRoles(sourceGuild, targetGuild) {
         this.log('👑 Cloning roles...');
-        const roles = sourceGuild.roles.cache.filter(role => role.name !== '@everyone').sort((a, b) => a.position - b.position);
+        const roles = sourceGuild.roles.cache
+            .filter(role => role.name !== '@everyone' && !role.managed)
+            .sort((a, b) => b.position - a.position);
 
 
 
