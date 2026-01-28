@@ -25,6 +25,18 @@ module.exports = {
                 name: '<trigger>',
                 description: 'Custom Clipboard Trigger'
             });
+            categories['Utility'].push({
+                name: '<math>',
+                description: 'Calculator (e.g. 5+5)'
+            });
+            categories['Utility'].push({
+                name: '<currency>',
+                description: 'Fiat Exchange (e.g. 10 usd to inr)'
+            });
+            categories['Utility'].push({
+                name: '<qr>',
+                description: 'QR Code Manager (type "qr")'
+            });
         }
 
         let replyMsg = null;

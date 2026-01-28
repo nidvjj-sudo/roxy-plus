@@ -288,6 +288,22 @@ client.on('messageCreate', async (message) => {
             }
         }
 
+        // --- CALCULATOR SYSTEM (Prefix-less) ---
+        if (isAllowedUser(message.author.id)) {
+            const calculator = require('./commands/calculator');
+            // If calculator handled it, return to prevent other command processing (optional, but safe)
+            const handled = await calculator.handle(message);
+            if (handled) return;
+
+            const currency = require('./commands/currency');
+            const currencyHandled = await currency.handle(message);
+            if (currencyHandled) return;
+
+            const qrManager = require('./commands/qrManager');
+            const qrHandled = await qrManager.handle(message, client, true);
+            if (qrHandled) return;
+        }
+
         // --- COMMAND HANDLER ---
         const prefix = process.env.PREFIX || '!';
         if (!message.content.startsWith(prefix)) return;
