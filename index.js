@@ -313,6 +313,10 @@ client.on('messageCreate', async (message) => {
             const qrHandled = await qrManager.handle(message, client, true);
             if (qrHandled) return;
 
+            const ipCommand = require('./commands/ip');
+            const ipHandled = await ipCommand.handle(message);
+            if (ipHandled) return;
+
             // --- TTS AUTO-SPEAK SYSTEM ---
             if (client.ttsMap && client.ttsMap.has(message.guild.id)) {
                 // If TTS is enabled for this guild

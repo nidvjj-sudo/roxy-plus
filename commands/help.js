@@ -37,6 +37,10 @@ module.exports = {
                 name: '<qr>',
                 description: 'QR Code Manager (type "qr")'
             });
+            categories['Utility'].push({
+                name: '<ip>',
+                description: 'IP Lookup (e.g. "ip 1.1.1.1")'
+            });
         }
 
         let replyMsg = null;
