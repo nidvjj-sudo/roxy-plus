@@ -525,6 +525,18 @@
                     <div id="totalTime" class="time-text">0:00</div>
                 </div>
 
+                <div class="volume-container"
+                    style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px; width: 100%; max-width: 350px; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 30px;">
+                    <svg viewBox="0 0 24 24" style="width:24px; height:24px; fill:#ccc;">
+                        <path
+                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                    </svg>
+                    <input type="range" id="volumeSlider" min="0" max="200" value="100"
+                        style="flex:1; cursor: pointer; accent-color: #8a2be2; height: 5px; border-radius: 5px;">
+                    <span id="volumeValue"
+                        style="color:#fff; font-family:monospace; font-weight:bold; min-width: 45px; text-align: right;">100%</span>
+                </div>
+
                 <div class="controls">
                     <button class="btn-control btn-prev" onclick="prevSong()" title="Previous"><svg viewBox="0 0 24 24">
                             <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
@@ -569,6 +581,7 @@
 
         <script>
             let currentGuildId = null;
+            let isDraggingVolume = false;
 
             function formatTime(ms) {
                 if (isNaN(ms)) return '0:00';
@@ -630,6 +643,12 @@
                 document.getElementById('progressBar').style.width = percent + '%';
                 document.getElementById('currTime').innerText = formatTime(data.position);
                 document.getElementById('totalTime').innerText = formatTime(data.duration);
+
+                if (!isDraggingVolume) {
+                    const vol = data.volume !== undefined ? data.volume : 100;
+                    document.getElementById('volumeSlider').value = vol;
+                    document.getElementById('volumeValue').innerText = vol + '%';
+                }
 
                 document.getElementById('queueCount').innerText = data.queueCount;
                 const list = document.getElementById('queueList');
@@ -748,6 +767,32 @@
             async function skipSong() { await fetch('/api/music/skip', { method: 'POST' }); updateState(); }
             async function prevSong() { await fetch('/api/music/previous', { method: 'POST' }); updateState(); }
             async function stopMusic() { if (confirm('Stop music?')) await fetch('/api/music/stop', { method: 'POST' }); updateState(); }
+
+            // Volume Logic
+            const vSlider = document.getElementById('volumeSlider');
+            vSlider.addEventListener('mousedown', () => isDraggingVolume = true);
+            vSlider.addEventListener('touchstart', () => isDraggingVolume = true);
+
+            async function sendVolume() {
+                if (!currentGuildId) return;
+                const vol = vSlider.value;
+                try {
+                    await fetch('/api/music/volume', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ guildId: currentGuildId, volume: vol })
+                    });
+                } catch (e) { }
+                setTimeout(() => isDraggingVolume = false, 500);
+            }
+
+            vSlider.addEventListener('mouseup', sendVolume);
+            vSlider.addEventListener('touchend', sendVolume);
+            vSlider.addEventListener('change', sendVolume);
+
+            vSlider.addEventListener('input', function () {
+                document.getElementById('volumeValue').innerText = this.value + '%';
+            });
 
             setInterval(updateState, 1000);
             updateState();
