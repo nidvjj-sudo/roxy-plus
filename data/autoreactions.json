@@ -1,0 +1,11 @@
+{
+  "global": true,
+  "enabledServers": [],
+  "enabledChannels": [],
+  "textTriggers": {
+    "!play": [
+      "✔"
+    ]
+  },
+  "userTriggers": {}
+}

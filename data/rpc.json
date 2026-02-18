@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "type": "STREAMING",
+  "name": "พิมพ์ !play เพื่อเล่นเพลง",
+  "applicationId": "",
+  "details": "",
+  "state": "",
+  "startTimestamp": 0,
+  "largeImage": "https://cdn.discordapp.com/attachments/1464785403503448222/1473451993014992917/fc4bc0c2d69dd94b155bfc96b7a6e6ed.gif?ex=6996429a&is=6994f11a&hm=6baa306dc84bfda1b74c33ed839dc0ec65cdf5db410961593d75fc2eaa09abc9&",
+  "largeText": "",
+  "smallImage": "https://cdn.discordapp.com/attachments/1464785403503448222/1473452143947026669/7223788ac37a98ed63d8396405ce7187.jpg?ex=699642be&is=6994f13e&hm=8eb9bf0c7e8870bc38b183b4ebb734f49151b3003486a9206d67859b3f661d75&",
+  "smallText": "",
+  "button1Text": "",
+  "button1Url": "",
+  "button2Text": "",
+  "button2Url": ""
+}
