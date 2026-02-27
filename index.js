@@ -171,10 +171,9 @@ if (client.lavalink) {
 
                         if (queue.textChannel) {
                             let nowPlayingMsg = '```\n';
-                            nowPlayingMsg += '╭─[ NOW PLAYING ]─╮\n\n';
-                            nowPlayingMsg += `  🎵 ${nextSong.info.title}\n`;
-                            nowPlayingMsg += `  👤 ${nextSong.info.author}\n`;
-                            nowPlayingMsg += '\n╰──────────────────────────────────╯\n```';
+                            nowPlayingMsg += 'NOW PLAYING\n\n';
+                            nowPlayingMsg += `  ${nextSong.info.title}\n`;
+                            nowPlayingMsg += `  ${nextSong.info.author}\n`;
                             queue.textChannel.send(nowPlayingMsg);
                         }
                     } catch (err) {

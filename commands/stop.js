@@ -30,11 +30,7 @@ module.exports = {
             }
 
             let response = '```\n';
-            response += '╭─[ MUSIC STOPPED ]─╮\n\n';
-            response += '  ⏹️ Player stopped\n';
-            response += '  🗑️ Queue cleared\n';
-            response += '  👋 Disconnected\n';
-            response += '\n╰──────────────────────────────────╯\n```';
+            response += 'MUSIC STOPPED\n\n';
 
             await message.channel.send(response);
 

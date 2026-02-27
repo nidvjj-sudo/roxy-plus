@@ -24,8 +24,8 @@ module.exports = {
 
                 let response = '```\n';
                 response += '╭─[ SKIPPED ]─╮\n\n';
-                response += `  ⏭️ Skipped: ${skippedSong.info.title}\n`;
-                response += '  📭 No more songs in queue\n';
+                response += `  Skipped: ${skippedSong.info.title}\n`;
+                response += '  No more songs in queue\n';
                 response += '\n╰──────────────────────────────────╯\n```';
 
                 await message.channel.send(response);
@@ -44,8 +44,8 @@ module.exports = {
 
             let response = '```\n';
             response += '╭─[ SKIPPED ]─╮\n\n';
-            response += `  ⏭️ Skipped: ${skippedSong.info.title}\n\n`;
-            response += '  🎵 Now Playing:\n';
+            response += `  Skipped: ${skippedSong.info.title}\n\n`;
+            response += '  Now Playing:\n';
             response += `     ${nextSong.info.title}\n`;
             response += `     by ${nextSong.info.author}\n`;
             response += '\n╰──────────────────────────────────╯\n```';

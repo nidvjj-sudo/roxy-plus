@@ -1,0 +1,29 @@
+const queueManager = require('../path/to/queueManager');
+
+module.exports = {
+    name: 'loop',
+    description: 'Loop mode control',
+
+    async execute(message, args) {
+
+        if (!message.guild) return;
+
+        const queue = queueManager.get(message.guild.id);
+        if (!queue) {
+            return message.channel.send('```No active queue```');
+        }
+
+        if (!args[0]) {
+            return message.channel.send('```Usage: !loop off / 1 / all```');
+        }
+
+        const mode = args[0].toLowerCase();
+
+        if (mode === 'off') queue.loopMode = 'off';
+        else if (mode === '1') queue.loopMode = 'one';
+        else if (mode === 'all') queue.loopMode = 'all';
+        else return message.channel.send('```Usage: !loop off / 1 / all```');
+
+        message.channel.send(`\`\`\`Loop mode: ${queue.loopMode.toUpperCase()}\`\`\``);
+    }
+};
